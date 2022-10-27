@@ -120,6 +120,7 @@ class Requirement {
 	 */
 	constructor( config ) {
 		this.name = config.name || 'Unnamed requirement';
+		this.allTeams = config.teams;
 
 		if ( config.paths === 'unmatched' ) {
 			this.pathsFilter = null;
