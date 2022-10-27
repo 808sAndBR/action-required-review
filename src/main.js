@@ -89,6 +89,7 @@ async function main() {
 		}
 		for (const item of reviewTeams) {
  			console.log(item);
+			core.info(item);
 		}
 		if ( ok ) {
 			await reporter.status( reporter.STATE_SUCCESS, 'All required reviews have been provided!' );
