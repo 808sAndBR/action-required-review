@@ -69,6 +69,7 @@ async function main() {
 		core.endGroup();
 
 		const matchedPaths = [];
+		const reviewTeams = new Set();
 		let ok = true;
 		for ( let i = 0; i < requirements.length; i++ ) {
 			const r = requirements[ i ];
@@ -83,7 +84,11 @@ async function main() {
 				ok = false;
 				core.endGroup();
 				core.error( `Requirement "${ r.name }" is not satisfied by the existing reviews.` );
+				reviewTeams.add(r.allTeams)
 			}
+		}
+		for (const item of reviewTeams) {
+ 			console.log(item);
 		}
 		if ( ok ) {
 			await reporter.status( reporter.STATE_SUCCESS, 'All required reviews have been provided!' );
