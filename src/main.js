@@ -82,9 +82,11 @@ async function main() {
 				core.info( `Requirement "${ r.name }" is satisfied by the existing reviews.` );
 			} else {
 				ok = false;
+				reviewTeams.add(r.allTeams);
+				console.log(r.allTeams);
+				core.info(r.allTeams);
 				core.endGroup();
-				core.error( `Requirement "${ r.name }" is not satisfied by the existing reviews.` );
-				reviewTeams.add(r.allTeams)
+				core.error( `Requirement "${ r.name }" is not satisfied by the existing reviews.` )
 			}
 		}
 		for (const item of reviewTeams) {
