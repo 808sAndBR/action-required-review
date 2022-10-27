@@ -55,6 +55,7 @@ async function getRequirements() {
  */
 async function main() {
 	try {
+		console.log(`In main`);
 		const requirements = await getRequirements();
 		core.startGroup( `Loaded ${ requirements.length } review requirement(s)` );
 
@@ -70,9 +71,11 @@ async function main() {
 
 		const matchedPaths = [];
 		const reviewTeams = new Set();
+		console.log(`reviewTeams = ${reviewTeams}`);
 		let ok = true;
 		for ( let i = 0; i < requirements.length; i++ ) {
 			const r = requirements[ i ];
+			console.log(`r = ${r}`);
 			core.startGroup( `Checking requirement "${ r.name }"...` );
 			if ( ! r.appliesToPaths( paths, matchedPaths ) ) {
 				core.endGroup();
@@ -81,6 +84,9 @@ async function main() {
 				core.endGroup();
 				core.info( `Requirement "${ r.name }" is satisfied by the existing reviews.` );
 			} else {
+				console.log(`In else`);
+				console.log(`r = ${r}`);
+				console.log(`allTeams ${r.allTeams}`);
 				ok = false;
 				reviewTeams.add(r.allTeams);
 				console.log(r.allTeams);
@@ -90,7 +96,9 @@ async function main() {
 				core.error( `Requirement "${ r.name }" is not satisfied by the existing reviews.` )
 			}
 		}
+		console.log(`Before teams loop`);
 		for (const item of reviewTeams) {
+			console.log(`item = ${item}`);
 			core.info( `SCOTT` );
  			console.log(` in set: "${ item }" `);
 			core.info(item);
