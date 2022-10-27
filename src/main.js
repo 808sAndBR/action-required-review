@@ -84,13 +84,15 @@ async function main() {
 				ok = false;
 				reviewTeams.add(r.allTeams);
 				console.log(r.allTeams);
-				core.info(r.allTeams);
+				core.info( `all teams "${ r.allTeams }" `);
+				core.info( `SCOTT` );
 				core.endGroup();
 				core.error( `Requirement "${ r.name }" is not satisfied by the existing reviews.` )
 			}
 		}
 		for (const item of reviewTeams) {
- 			console.log(item);
+			core.info( `SCOTT` );
+ 			console.log(` in set: "${ item }" `);
 			core.info(item);
 		}
 		if ( ok ) {
