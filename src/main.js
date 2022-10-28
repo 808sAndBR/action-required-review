@@ -55,7 +55,7 @@ async function getRequirements() {
  */
 async function main() {
 	try {
-		console.log(`In main`);
+		core.info(`In main`);
 		const requirements = await getRequirements();
 		core.startGroup( `Loaded ${ requirements.length } review requirement(s)` );
 
@@ -71,11 +71,11 @@ async function main() {
 
 		const matchedPaths = [];
 		const reviewTeams = new Set();
-		console.log(`reviewTeams = ${reviewTeams}`);
+		core.info(`reviewTeams = ${reviewTeams}`);
 		let ok = true;
 		for ( let i = 0; i < requirements.length; i++ ) {
 			const r = requirements[ i ];
-			console.log(`r = ${r}`);
+			core.info(`r = ${r}`);
 			core.startGroup( `Checking requirement "${ r.name }"...` );
 			if ( ! r.appliesToPaths( paths, matchedPaths ) ) {
 				core.endGroup();
@@ -84,25 +84,26 @@ async function main() {
 				core.endGroup();
 				core.info( `Requirement "${ r.name }" is satisfied by the existing reviews.` );
 			} else {
-				console.log(`In else`);
-				console.log(`r = ${r}`);
-				console.log(`allTeams ${r.allTeams}`);
+				core.info(`In else`);
+				core.info(`r = ${r}`);
+				core.info(`allTeams ${r.allTeams}`);
 				ok = false;
 				reviewTeams.add(r.allTeams);
-				console.log(r.allTeams);
+				core.info(r.allTeams);
 				core.info( `all teams "${ r.allTeams }" `);
 				core.info( `SCOTT` );
 				core.endGroup();
 				core.error( `Requirement "${ r.name }" is not satisfied by the existing reviews.` )
 			}
 		}
-		console.log(`Before teams loop`);
+		core.info(`Before teams loop`);
 		for (const item of reviewTeams) {
-			console.log(`item = ${item}`);
+			core.info(`item = ${item}`);
 			core.info( `SCOTT` );
- 			console.log(` in set: "${ item }" `);
+ 			core.info(` in set: "${ item }" `);
 			core.info(item);
 		}
+		reviewTeams.forEach( p => core.info( p ) );
 		if ( ok ) {
 			await reporter.status( reporter.STATE_SUCCESS, 'All required reviews have been provided!' );
 		} else {
